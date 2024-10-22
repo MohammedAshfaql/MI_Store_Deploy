@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive UI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Navbar */
+        header {
+            background-color: #333;
+            padding: 10px 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-list {
+            list-style-type: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-list li {
+            margin: 0 10px;
+        }
+
+        .nav-list li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 10px;
+        }
+
+        .nav-list li a:hover {
+            color: #f4f4f4;
+            background-color: #555;
+            border-radius: 5px;
+        }
+
+        /* Product Section */
+        main {
+            padding: 20px;
+        }
+
+        .product-list {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(4, 1fr); /* 4 columns on desktop */
+        }
+
+        .product-item {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .product-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .product-item h2 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .nav-list {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .product-list {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-list {
+                grid-template-columns: 1fr; /* 1 column on mobile */
+            }
+
+            .nav-list {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="product-list">
+            <!-- Product Item 1 -->
+            <div class="product-item">
+                <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_450,h_450/global/308427/01/sv01/fnd/IND/fmt/png/Mercedes-AMG-Petronas-F1%C2%AE-Speedfusion-OG-Unisex-Motorsport-Sneakers" alt="Product 1">
+                <h2>Product 1</h2>
+            </div>
+
+            <!-- Product Item 2 -->
+            <div class="product-item">
+                <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_450,h_450/global/392332/07/sv01/fnd/IND/fmt/png/Caven-2.0-VTG-Unisex-Sneakers" alt="Product 2">
+                <h2>Product 2</h2>
+            </div>
+
+            <!-- Product Item 3 -->
+            <div class="product-item">
+                <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_450,h_450/global/399614/01/sv01/fnd/IND/fmt/png/Caven-2.0-Year-Of-Sport-Unisex-Sneakers" alt="Product 3">
+                <h2>Product 3</h2>
+            </div>
+
+            <!-- Product Item 4 -->
+            <div class="product-item">
+                <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_450,h_450/global/395104/02/sv01/fnd/IND/fmt/png/PUMA-Club-5v5-SD-Unisex-Sneakers" alt="Product 4">
+                <h2>Product 4</h2>
+            </div>
+
+            <!-- Product Item 5 -->
+            <div class="product-item">
+                <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_450,h_450/global/308419/01/sv01/fnd/IND/fmt/png/Porsche-Legacy-Caven-2.0-Turbo-Unisex-Motorsport-Sneakers" alt="Product 5">
+                <h2>Product 5</h2>
+            </div>
+
+            <!-- Product Item 6 -->
+            <div class="product-item">
+                <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_450,h_450/global/397837/03/sv01/fnd/IND/fmt/png/Cassia-Lux-Unisex-Sneakers" alt="Product 6">
+                <h2>Product 6</h2>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 All Rights Reserved</p>
+    </footer>
+</body>
+</html>
