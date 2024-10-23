@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout</title>
+    <style>
+        body {
+            background-color: yellow;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            border: 2px dotted black;
+            background-color: lightgray;
+            padding: 20px;
+        }
+
+        .box {
+            display: flex;
+            background-color: white;
+            border: 1px dashed gray;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        .image {
+            width: 150px;
+            height: 100px;
+            background-color: blue;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .content {
+            flex-grow: 1;
+        }
+
+        .content h3 {
+            margin: 0;
+            color: black;
+        }
+
+        .content p {
+            margin: 5px 0;
+        }
+
+        .content a {
+            color: blue;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <div class="image">Image</div>
+            <div class="content">
+                <h3>Title</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero deleniti incidunt rem.</p>
+                <a href="#">Read more</a>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">Image</div>
+            <div class="content">
+                <h3>Title</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero deleniti incidunt rem.</p>
+                <a href="#">Read more</a>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">Image</div>
+            <div class="content">
+                <h3>Title</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero deleniti incidunt rem.</p>
+                <a href="#">Read more</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
