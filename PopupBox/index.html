@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+
+#center-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Hidden info box */
+#info-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 20px;
+    display: none; /* Initially hidden */
+}
+
+/* Show info box when button is clicked */
+#center-button:active + #info-box {
+    display: block;
+}
+
+#center-button:active {
+    display: none; /* Hide the button on click */
+}
+    </style>
+</head>
+<body>
+    <button id="center-button">Click Me</button>
+
+    <div id="info-box">This is info</div>
+</body>
+</html>
