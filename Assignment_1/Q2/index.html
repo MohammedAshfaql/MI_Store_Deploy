@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Time To Solve The Problems</h1>
+</body>
+</html>
+
+<script>
+// Q1
+// • Employee Information: Define a function employeeInformation that takes an array of employee objects, 'employees', as a parameter. Extract the name and department of the second employee in the array and assign them to variables 'secondEmployee Name' and 'secondEmployeeDepartment'. Return an object with 'secondEmployeeName' and 'second Employee Department'.
+// //Example Invocation:
+// const employees = [
+// ];
+// { name: "John Doe", age: 30, department: "HR", salary: seeee},
+// { name: "Jane Smith", age: 28, department: "Finance", salary: 60000 },
+// { name: "Alex Johnson", age: 35, department: "IT", salary: 70000 },
+// console.log(employee Information (employees)); // Output: { secondEmployeeName: 'Jane Smith', second EmployeeDepartment: 'Finance' }
+
+function employeeInformation(employees){
+    const {name: secondEmployeeName, department: secondEmployeeDepartment} = employees[1];
+    return {secondEmployeeName, secondEmployeeDepartment};
+}
+const employees = [
+  { name: "John Doe", age: 30, department: "HR", salary: 50000 },
+  { name: "Jane Smith", age: 28, department: "Finance", salary: 60000 },
+  { name: "Alex Johnson", age: 35, department: "IT", salary: 70000 },
+];
+console.log(employeeInformation(employees)); // Output: { secondEmployeeName: 'Jane Smith', secondEmployeeDepartment: 'Finance' }
+
+
+// Q2
+// Average Salary: Define a function averageSalary that takes an array of employee objects, 'employees', as a parameter. Calculate the average salary of all employees using destructuring and a for-of-loop. Return the average salary.
+// //Example Invocation:
+// const employees = [
+// ];
+// { name: "John Doe", age: 30, department: "HR", salary: seeee },
+// { name: "Jane Smith", age: 28, department: "Finance", salary: 60000 },
+// { name: "Alex Johnson", age: 35, department: "IT", salary: 70000 },
+// console.log(averageSalary (employees)); // Output: 60000
+function averageSalary(employees){
+let totalSalary = 0
+for(const {salary} of employees) {
+    totalSalary += salary;
+}
+const average = totalSalary / employees.length
+return average
+}
+
+const employees = [
+  { name: "John Doe", age: 30, department: "HR", salary: 50000 },
+  { name: "Jane Smith", age: 28, department: "Finance", salary: 60000 },
+  { name: "Alex Johnson", age: 35, department: "IT", salary: 70000 },
+];
+
+console.log(averageSalary(employees)); // Output: 60000
+
+// Q3
+// Third Employee Info: Define a function third Employeeinfo that takes an array of employee objects, 'employees', as a parameter. Extract the name, age, and salary of the third employee and assign them to variables 'third EmployeeName', 'thirdEmployeeAge', and 'thirdEmployeeSalary'. Calculate a bonus of 10% on the salary. Return a string in the format "Employee:, Age:, Salary:, Bonus: ".
+
+function thirdEmployeeInfo(employees){
+const {name: thirdEmployeeName, age: thirdEmployeeAge, salary:thirdEmployeeSalary} = employees[2];
+const Bonus = thirdEmployeeSalary * 0.1;
+return `Employee: ${thirdEmployeeName}, Age: ${thirdEmployeeAge}, Salary: ${thirdEmployeeSalary}, Bonus: ${Bonus} `
+
+}
+
+const employees = [
+  { name: "John Doe", age: 30, department: "HR", salary: 50000 },
+  { name: "Jane Smith", age: 28, department: "Finance", salary: 60000 },
+  { name: "Alex Johnson", age: 35, department: "IT", salary: 70000 },
+];
+
+console.log(thirdEmployeeInfo(employees)); // Output: "Employee: Alex Johnson, Age: 35, Salary: 70000, Bonus: 7000"
+
+
+</script>
