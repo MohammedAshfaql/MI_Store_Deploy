@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+
+function calculate(num1, num2) {
+  function operation(num1, num2, callback) {
+    return callback(num1, num2);
+  }
+
+  const addition = (a, b) => a + b;
+  const multiplication = (a, b) => a * b;
+
+  const sumResult = operation(num1, num2, addition);
+  const productResult = operation(num1, num2, multiplication);
+
+  console.log("Addition result:", sumResult);
+  console.log("Multiplication result:", productResult);
+}
+
+// Example usage:
+calculate(5, 10);
+calculate(7, 3);
+
+</script>

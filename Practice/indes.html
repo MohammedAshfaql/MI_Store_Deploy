@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    function washClothes(time,callback){
+        setTimeout(() => {
+            console.log("washed clothes")
+            callback()
+        }, time);
+    }
+    function dryClothes(time,cb){
+        setTimeout(() => {
+            console.log("dry clothes")
+            cb()
+        }, time);
+    }
+    function ironClothes(time,cb){
+        setTimeout(() => {
+            console.log("iron clothes")
+            cb()
+        }, time);
+    }
+    function foldClothes(time,cb){
+        setTimeout(() => {
+            console.log("fold clothes")
+            cb()
+        }, time);
+    }
+
+    washClothes(3000,function (){
+        dryClothes (6000, function(){
+            ironClothes(5000, function(){
+                foldClothes(4000)
+            })
+            })
+        })
+    
+
+    // dryClothes(6000);
+    // ironClothes(5000);
+    // foldClothes(4000);
+</script>
