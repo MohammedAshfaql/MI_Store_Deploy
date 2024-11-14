@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paginated User App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .user-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .user-card {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .pagination {
+            margin: 20px 0;
+        }
+        .pagination button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Paginated User App</h1>
+    <div id="user-container" class="user-container"></div>
+    <div class="pagination" id="pagination"></div>
+
+    <script>
+        const API_URL = 'https://jsonplaceholder.typicode.com/users';
+        const USERS_PER_PAGE = 6;
+        const userContainer = document.getElementById('user-container');
+        const paginationContainer = document.getElementById('pagination');
+        async function fetchUsers(page) {
+            try {
+                const start = (page - 1) * USERS_PER_PAGE;
+                const end = start + USERS_PER_PAGE;
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('Network response was not ok');
+                const users = await response.json();
+                const paginatedUsers = users.slice(start, end);
+                userContainer.innerHTML = '';
+                paginatedUsers.forEach(user => {
+                    const userCard = document.createElement('div');
+                    userCard.className = 'user-card';
+                    userCard.innerHTML = `
+                        <h2>${user.name}</h2>
+                        <p>Email: ${user.email}</p>
+                        <p>Phone: ${user.phone}</p>
+                        <p>Company: ${user.company.name}</p>
+                    `;
+                    userContainer.appendChild(userCard);
+                });
+            } catch (error) {
+                console.error('Error fetching users:', error);
+                userContainer.innerHTML = '<p>Failed to load user data. Please try again later.</p>';
+            }
+        }
+        function createPagination(totalItems) {
+            const totalPages = Math.ceil(totalItems / USERS_PER_PAGE);
+            paginationContainer.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.innerText = i;
+                button.addEventListener('click', () => fetchUsers(i));
+                paginationContainer.appendChild(button);
+            }
+        }
+        async function initialize() {
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('Network response was not ok');
+                const users = await response.json();
+                const totalItems = users.length;
+
+                createPagination(totalItems);
+                fetchUsers(1);
+            } catch (error) {
+                console.error('Error initializing app:', error);
+                userContainer.innerHTML = '<p>Failed to initialize. Please try again later.</p>';
+            }
+        }
+        initialize();
+    </script>
+</body>
+</html>
