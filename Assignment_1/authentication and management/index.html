@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form id="loginForm">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+        <p id="welcomeMessage"></p>
+    </form>
+    
+    <button id="fetchTodos" style="display:none;">Fetch Todos</button>
+    <div id="todosList"></div>
+
+    <script>
+        const loginForm = document.getElementById("loginForm");
+        const fetchTodosButton = document.getElementById("fetchTodos");
+        const todosList = document.getElementById("todosList");
+        const welcomeMessage = document.getElementById("welcomeMessage");
+
+        loginForm.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            const response = await fetch("https://json-with-auth.onrender.com/user/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password })
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                const userAuthToken = data.token;
+                const userId = data.userId;
+                localStorage.setItem("localAccessToken", userAuthToken);
+                localStorage.setItem("userId", userId);
+                welcomeMessage.textContent = `Hey ${username}, welcome back!`;
+                fetchTodosButton.style.display = "block";
+            } else {
+                welcomeMessage.textContent = "Login failed. Please check your credentials.";
+            }
+        });
+
+        fetchTodosButton.addEventListener("click", async function() {
+            const userId = localStorage.getItem("userId");
+            const token = localStorage.getItem("localAccessToken");
+
+            const response = await fetch(`https://json-with-auth.onrender.com/todos?userId=${userId}`, {
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+
+            if (response.ok) {
+                const todos = await response.json();
+                displayTodos(todos);
+            } else {
+                todosList.textContent = "Failed to fetch todos.";
+            }
+        });
+
+        function displayTodos(todos) {
+            todosList.innerHTML = "";
+            todos.forEach(todo => {
+                const todoItem = document.createElement("div");
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.checked = todo.completed;
+                checkbox.addEventListener("change", () => toggleTodoCompletion(todo.id, checkbox.checked));
+
+                const label = document.createElement("label");
+                label.textContent = todo.title;
+
+                todoItem.appendChild(checkbox);
+                todoItem.appendChild(label);
+                todosList.appendChild(todoItem);
+            });
+        }
+
+        async function toggleTodoCompletion(todoId, completed) {
+            const token = localStorage.getItem("localAccessToken");
+
+            await fetch(`https://json-with-auth.onrender.com/todos/${todoId}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ completed })
+            });
+        }
+    </script>
+</body>
+</html>
