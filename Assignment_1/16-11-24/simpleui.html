@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novels List</title>
+  <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
+  <h1>Novels List</h1>
+  <label for="filterYear">Filter by Release Year:</label>
+  <input type="number" id="filterYear" placeholder="Enter release year">
+  <button onclick="filterByYear()">Filter</button>
+  <br><br>
+  <label for="sortOrder">Sort by Price:</label>
+  <select id="sortOrder" onchange="sortByPrice()">
+    <option value="asc">Ascending</option>
+    <option value="desc">Descending</option>
+  </select>
+  <br><br>
+  <label for="searchQuery">Search:</label>
+  <input type="text" id="searchQuery" oninput="searchNovels()" placeholder="Search by title or author">
+  <br><br>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Release Year</th>
+        <th>Price</th>
+        <th>Genre</th>
+      </tr>
+    </thead>
+    <tbody id="novelsTable"></tbody>
+  </table>
+  <script>
+    let firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+    let app = firebase.initializeApp(firebaseConfig);
+    let db = firebase.firestore();
+    function renderNovels(novels) {
+      let novelsTable = document.getElementById('novelsTable');
+      novelsTable.innerHTML = '';
+      novels.forEach(novel => {
+        let row = `<tr>
+          <td>${novel.title}</td>
+          <td>${novel.author}</td>
+          <td>${novel.release_year}</td>
+          <td>${novel.price}</td>
+          <td>${novel.genre}</td>
+        </tr>`;
+        novelsTable.innerHTML += row;
+      });
+    }
+    async function fetchNovels() {
+      let novels = [];
+      let querySnapshot = await db.collection('novels').get();
+      querySnapshot.forEach(doc => novels.push(doc.data()));
+      renderNovels(novels);
+    }
+    fetchNovels();
+    async function filterByYear() {
+      let year = document.getElementById('filterYear').value;
+      let novels = [];
+      let querySnapshot = await db.collection('novels').where('release_year', '==', parseInt(year)).get();
+      querySnapshot.forEach(doc => novels.push(doc.data()));
+      renderNovels(novels);
+    }
+    async function sortByPrice() {
+      let order = document.getElementById('sortOrder').value;
+      let novels = [];
+      let querySnapshot = await db.collection('novels').orderBy('price', order).get();
+      querySnapshot.forEach(doc => novels.push(doc.data()));
+      renderNovels(novels);
+    }
+    async function searchNovels() {
+      let query = document.getElementById('searchQuery').value.toLowerCase();
+      let novels = [];
+      let querySnapshot = await db.collection('novels').get();
+      querySnapshot.forEach(doc => {
+        let novel = doc.data();
+        if (novel.title.toLowerCase().includes(query) || novel.author.toLowerCase().includes(query)) {
+          novels.push(novel);
+        }
+      });
+      renderNovels(novels);
+    }
+  </script>
+</body>
+</html>
